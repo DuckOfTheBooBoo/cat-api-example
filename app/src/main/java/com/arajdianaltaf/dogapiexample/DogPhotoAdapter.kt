@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arajdianaltaf.dogapiexample.databinding.ItemImagesBinding
 import com.bumptech.glide.Glide
 
-// TODO: Implement RecyclerView Adapter
 class DogPhotoAdapter(private val dog: List<DogDummy>, val context: Context): RecyclerView.Adapter<DogPhotoAdapter.DogPhotoViewHolder>() {
 
 
