@@ -3,13 +3,9 @@ package com.arajdianaltaf.dogapiexample
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arajdianaltaf.dogapiexample.databinding.ActivityMainBinding
-import com.google.android.flexbox.AlignItems
-import com.google.android.flexbox.FlexDirection
-import com.google.android.flexbox.FlexWrap
-import com.google.android.flexbox.FlexboxLayoutManager
-import com.google.android.flexbox.JustifyContent
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,6 +25,11 @@ class MainActivity : AppCompatActivity() {
         val breedList = Constants.breedList
         val breedSelectAdapter = ArrayAdapter(this, R.layout.dropdown_item, breedList)
         binding?.actvBreedType?.setAdapter(breedSelectAdapter)
+
+        // Button OnClickListener
+        binding?.btnRequest?.setOnClickListener {
+            Toast.makeText(this, binding?.actvBreedType?.text, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
