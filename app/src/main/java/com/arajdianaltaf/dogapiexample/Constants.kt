@@ -6,6 +6,7 @@ object Constants {
         const val TAG_BTN_CLICK = "BUTTON CLICK:"
     const val TAG_KEY_EXIST = "KEY EXIST:"
     const val TAG_KEY_NOT_EXIST = "KEY DOESN'T EXIST:"
+    const val TAG_SUB_BREED_EMPTY = "ERR: SUB_BREED EMPTY"
 
         val breedList = listOf(
                 "affenpinscher",

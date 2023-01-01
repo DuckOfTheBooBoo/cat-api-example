@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.ContextThemeWrapper
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -16,27 +17,11 @@ import com.arajdianaltaf.dogapiexample.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
-    private var subBreedSelectable = false
+//    private var subBreedSelectable = false
 
     private fun checkBreed(): Boolean {
 
-        val breed: String = binding?.actvBreedType?.text.toString()
-        val subBreed: String = binding?.actvSubBreedType?.text.toString()
 
-        when {
-            TextUtils.isEmpty(breed) -> {
-                Toast.makeText(this, "Please select breed.", Toast.LENGTH_SHORT).show()
-            }
-
-
-            TextUtils.isEmpty(subBreed) && subBreedSelectable == false -> {
-                Toast.makeText(this, "Please select sub breed.", Toast.LENGTH_SHORT).show()
-            }
-
-            else -> {
-
-            }
-        }
 
         return true
 
@@ -85,9 +70,27 @@ class MainActivity : AppCompatActivity() {
 
         // Button OnClickListener
         binding?.btnRequest?.setOnClickListener {
-            if (checkBreed()) {
-                Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+
+            val breed: String = binding?.actvBreedType?.text.toString()
+            val subBreed: String = binding?.actvSubBreedType?.text.toString()
+
+            when {
+                TextUtils.isEmpty(breed) -> {
+                    Toast.makeText(this, "Please select breed.", Toast.LENGTH_SHORT).show()
+                }
+
+
+                TextUtils.isEmpty(subBreed) && Constants.subBreedMap.containsKey(breed) -> {
+                    Log.e(Constants.TAG_SUB_BREED_EMPTY, "User has not yet selected the available sub breeds.")
+                    Toast.makeText(this, "Please select sub breed.", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> {
+                    Log.i("ENRTY VALID", "Success")
+                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+                }
             }
+
         }
 
     }
