@@ -1,17 +1,15 @@
-package com.arajdianaltaf.dogapiexample
+package com.arajdianaltaf.catapiexample
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.AsyncListUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.arajdianaltaf.dogapiexample.databinding.ItemImagesBinding
+import com.arajdianaltaf.catapiexample.databinding.ItemImagesBinding
 import com.bumptech.glide.Glide
 
-class DogPhotoAdapter(val context: Context): RecyclerView.Adapter<DogPhotoAdapter.DogPhotoViewHolder>() {
+class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapter.DogPhotoViewHolder>() {
 
     private val diffCallback = object: DiffUtil.ItemCallback<String>() {
         override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {

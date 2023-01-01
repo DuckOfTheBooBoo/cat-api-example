@@ -1,4 +1,4 @@
-package com.arajdianaltaf.dogapiexample
+package com.arajdianaltaf.catapiexample
 
 object Constants {
 

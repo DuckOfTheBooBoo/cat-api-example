@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.arajdianaltaf.dogapiexample'
+    namespace 'com.arajdianaltaf.catapiexample'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.arajdianaltaf.dogapiexample"
+        applicationId "com.arajdianaltaf.catapiexample"
         minSdk 21
         targetSdk 32
         versionCode 1

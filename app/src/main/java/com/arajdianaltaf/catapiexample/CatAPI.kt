@@ -1,10 +1,10 @@
-package com.arajdianaltaf.dogapiexample
+package com.arajdianaltaf.catapiexample
 
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface DogAPI {
+interface CatAPI {
 
     @GET("/api/breed/{breed}/images/random/{num}")
     suspend fun getDogImagesByBreed(@Path("breed") breed: String, @Path("num") num: Int = 6): Response<ResponseImages>

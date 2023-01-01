@@ -1,6 +1,5 @@
-package com.arajdianaltaf.dogapiexample
+package com.arajdianaltaf.catapiexample
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -10,7 +9,7 @@ import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.arajdianaltaf.dogapiexample.databinding.ActivityMainBinding
+import com.arajdianaltaf.catapiexample.databinding.ActivityMainBinding
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        val adapter = DogPhotoAdapter(this)
+        val adapter = CatPhotoAdapter(this)
         binding?.rvImages?.adapter = adapter
         binding?.rvImages?.layoutManager = GridLayoutManager(this, 3)
 

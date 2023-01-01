@@ -1,17 +1,16 @@
-package com.arajdianaltaf.dogapiexample
+package com.arajdianaltaf.catapiexample
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 object RetrofitClient {
 
-    val api: DogAPI by lazy {
+    val api: CatAPI by lazy {
         Retrofit.Builder()
             .baseUrl("https://dog.ceo")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(DogAPI::class.java)
+            .create(CatAPI::class.java)
     }
 
 }
