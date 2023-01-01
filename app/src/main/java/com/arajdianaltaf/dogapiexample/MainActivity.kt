@@ -1,18 +1,17 @@
 package com.arajdianaltaf.dogapiexample
 
-import android.content.ContextWrapper
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.view.ContextThemeWrapper
-import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arajdianaltaf.dogapiexample.databinding.ActivityMainBinding
+import retrofit2.HttpException
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        val adapter = DogPhotoAdapter(Doggos.doggosList, this)
+        val adapter = DogPhotoAdapter(this)
         binding?.rvImages?.adapter = adapter
         binding?.rvImages?.layoutManager = GridLayoutManager(this, 3)
 
@@ -87,11 +86,36 @@ class MainActivity : AppCompatActivity() {
 
                 else -> {
                     Log.i("ENRTY VALID", "Success")
-                    Toast.makeText(this, "success", Toast.LENGTH_SHORT).show()
+
+                    lifecycleScope.launchWhenCreated {
+                        val response = try {
+                            if (Constants.subBreedMap.containsKey(breed)) {
+                                RetrofitClient.api.getDogImagesBySubBreed(breed = breed, subBreed = subBreed)
+                            } else {
+                                RetrofitClient.api.getDogImagesByBreed(breed = breed)
+                            }
+                        } catch (e: IOException) {
+                            Log.e("MainActivity", "$e, you might not have internet connection")
+                            return@launchWhenCreated
+                        } catch (e: HttpException) {
+                            Log.e("MainActivity", "$e, unexpected respone")
+                            return@launchWhenCreated
+                        }
+
+                        if (response.isSuccessful && response.body() != null) {
+                            adapter.images = response.body()!!.message
+                        } else {
+                            Log.e("MainActivity", "Response not successful")
+                        }
+
+                    }
+
                 }
             }
 
         }
+
+
 
     }
 
