@@ -30,16 +30,13 @@ class DogPhotoAdapter(val context: Context): RecyclerView.Adapter<DogPhotoAdapte
 
     inner class DogPhotoViewHolder(val itemBinding: ItemImagesBinding): RecyclerView.ViewHolder(itemBinding.root) {
         fun bindItem(item: String) {
-//            itemBinding.ivDogImage.contentDescription = item.breed
             Glide.with(context)
                 .load(item)
                 .centerCrop()
                 .override(300, 300)
+                .placeholder(R.drawable.dog_api_logo)
                 .into(itemBinding.ivDogImage)
 
-//            itemBinding.ivDogImage.setOnClickListener {
-//                Toast.makeText(context, itemBinding.ivDogImage.contentDescription, Toast.LENGTH_SHORT).show()
-//            }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.arajdianaltaf.dogapiexample
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,14 +17,9 @@ import java.io.IOException
 class MainActivity : AppCompatActivity() {
 
     private var binding: ActivityMainBinding? = null
-//    private var subBreedSelectable = false
 
-    private fun checkBreed(): Boolean {
-
-
-
-        return true
-
+    private fun makeToast(msg: String, length: Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(this, msg, length).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,13 +71,13 @@ class MainActivity : AppCompatActivity() {
 
             when {
                 TextUtils.isEmpty(breed) -> {
-                    Toast.makeText(this, "Please select breed.", Toast.LENGTH_SHORT).show()
+                    makeToast("Please select breed.")
                 }
 
 
                 TextUtils.isEmpty(subBreed) && Constants.subBreedMap.containsKey(breed) -> {
                     Log.e(Constants.TAG_SUB_BREED_EMPTY, "User has not yet selected the available sub breeds.")
-                    Toast.makeText(this, "Please select sub breed.", Toast.LENGTH_SHORT).show()
+                    makeToast("Please select sub breed.")
                 }
 
                 else -> {
@@ -94,18 +90,25 @@ class MainActivity : AppCompatActivity() {
                             } else {
                                 RetrofitClient.api.getDogImagesByBreed(breed = breed)
                             }
+
                         } catch (e: IOException) {
                             Log.e("MainActivity", "$e, you might not have internet connection")
+                            makeToast("$e, you might not have internet connection")
                             return@launchWhenCreated
+
                         } catch (e: HttpException) {
-                            Log.e("MainActivity", "$e, unexpected respone")
+                            Log.e("MainActivity", "$e, unexpected response")
+                            makeToast("$e, unexpected response")
                             return@launchWhenCreated
+
                         }
 
                         if (response.isSuccessful && response.body() != null) {
                             adapter.images = response.body()!!.message
+
                         } else {
                             Log.e("MainActivity", "Response not successful")
+                            makeToast("Response not successful [${response.code()}]")
                         }
 
                     }
