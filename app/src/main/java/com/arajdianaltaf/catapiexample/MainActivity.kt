@@ -1,6 +1,5 @@
 package com.arajdianaltaf.catapiexample
 
-import android.content.res.AssetFileDescriptor
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -9,16 +8,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.arajdianaltaf.catapiexample.data.CatResponseItem
+import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
 import com.arajdianaltaf.catapiexample.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import java.io.BufferedReader
-import java.io.File
-import java.io.FileReader
+import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 
@@ -37,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         val reader = BufferedReader(InputStreamReader(inputStream))
 
 
-        val jsonRead = gson.fromJson(reader, Array<CatResponseItem>::class.java)
+        val jsonRead = gson.fromJson(reader, Array<CatResponseImageItem>::class.java)
         val breedList = mutableListOf<String>()
 
         for (cat in jsonRead) {
@@ -80,37 +78,40 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    Log.i("ENRTY VALID", "Success")
+                    Log.i(Constants.TAG_MAINACTIVITY, "All entry are valid.")
 
-//                    lifecycleScope.launchWhenCreated {
-//                        val response = try {
-//                            if (Constants.subBreedMap.containsKey(breed)) {
-//                                RetrofitClient.api.getDogImagesBySubBreed(breed = breed, subBreed = subBreed)
-//                            } else {
-//                                RetrofitClient.api.getDogImagesByBreed(breed = breed)
-//                            }
-//
-//                        } catch (e: IOException) {
-//                            Log.e("MainActivity", "$e, you might not have internet connection")
-//                            makeToast("$e, you might not have internet connection")
-//                            return@launchWhenCreated
-//
-//                        } catch (e: HttpException) {
-//                            Log.e("MainActivity", "$e, unexpected response")
-//                            makeToast("$e, unexpected response")
-//                            return@launchWhenCreated
-//
-//                        }
-//
-//                        if (response.isSuccessful && response.body() != null) {
-//                            adapter.images = response.body()!!.message
-//
-//                        } else {
-//                            Log.e("MainActivity", "Response not successful")
-//                            makeToast("Response not successful [${response.code()}]")
-//                        }
-//
-//                    }
+                    lifecycleScope.launchWhenCreated {
+                        val response = try {
+                            RetrofitClient.api.getCatImagesByBreed(
+                                api_key = Constants.API_KEY,
+                                breedId = breed,
+                            )
+
+
+                        } catch (e: IOException) {
+                            Log.e("MainActivity", "$e, you might not have internet connection")
+                            makeToast("$e, you might not have internet connection")
+                            return@launchWhenCreated
+
+                        } catch (e: HttpException) {
+                            Log.e("MainActivity", "$e, unexpected response")
+                            makeToast("$e, unexpected response")
+                            return@launchWhenCreated
+
+                        }
+
+                        if (response.isSuccessful && response.body() != null) {
+                            adapter.images = response.body()!!
+
+                            binding?.tvBreedDesc?.text = response.body()!![0].breeds[0].description
+
+
+                        } else {
+                            Log.e("MainActivity", "Response not successful")
+                            makeToast("Response not successful [${response.code()}]")
+                        }
+
+                    }
 
                 }
             }

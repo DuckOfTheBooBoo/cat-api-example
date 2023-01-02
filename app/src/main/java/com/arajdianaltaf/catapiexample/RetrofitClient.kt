@@ -7,7 +7,7 @@ object RetrofitClient {
 
     val api: CatAPI by lazy {
         Retrofit.Builder()
-            .baseUrl("https://dog.ceo")
+            .baseUrl("https://api.thecatapi.com")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(CatAPI::class.java)

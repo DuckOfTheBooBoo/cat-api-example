@@ -6,34 +6,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
 import com.arajdianaltaf.catapiexample.databinding.ItemImagesBinding
 import com.bumptech.glide.Glide
 
 class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapter.DogPhotoViewHolder>() {
 
-    private val diffCallback = object: DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    private val diffCallback = object: DiffUtil.ItemCallback<CatResponseImageItem>() {
+        override fun areItemsTheSame(oldItem: CatResponseImageItem, newItem: CatResponseImageItem): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: CatResponseImageItem, newItem: CatResponseImageItem): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diffCallback)
-    var images: List<String>
+    var images: List<CatResponseImageItem>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
 
     inner class DogPhotoViewHolder(val itemBinding: ItemImagesBinding): RecyclerView.ViewHolder(itemBinding.root) {
-        fun bindItem(item: String) {
+        fun bindItem(item: CatResponseImageItem) {
             Glide.with(context)
-                .load(item)
+                .load(item.url)
                 .centerCrop()
                 .override(300, 300)
                 .placeholder(R.drawable.dog_api_logo)
                 .into(itemBinding.ivDogImage)
+
 
         }
     }
