@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
+import com.arajdianaltaf.catapiexample.data.CatResponseItem
 import com.arajdianaltaf.catapiexample.databinding.ActivityMainBinding
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -35,12 +36,15 @@ class MainActivity : AppCompatActivity() {
         val reader = BufferedReader(InputStreamReader(inputStream))
 
 
-        val jsonRead = gson.fromJson(reader, Array<CatResponseImageItem>::class.java)
+        val jsonRead = gson.fromJson(reader, Array<CatResponseItem>::class.java)
         val breedList = mutableListOf<String>()
 
         for (cat in jsonRead) {
-            breedList.add(cat.id)
+            breedList.add(cat.name)
+            Constants.idMap[cat.name] = cat.id
         }
+
+
 
         withContext(Dispatchers.Main) {
             val breedSelectAdapter =
@@ -70,7 +74,8 @@ class MainActivity : AppCompatActivity() {
         // Button OnClickListener
         binding?.btnRequest?.setOnClickListener {
 
-            val breed: String = binding?.actvBreedType?.text.toString()
+            val selectedBreed: String = binding?.actvBreedType?.text.toString()
+            val breed = Constants.idMap[selectedBreed]
 
             when {
                 TextUtils.isEmpty(breed) -> {
@@ -84,7 +89,7 @@ class MainActivity : AppCompatActivity() {
                         val response = try {
                             RetrofitClient.api.getCatImagesByBreed(
                                 api_key = Constants.API_KEY,
-                                breedId = breed,
+                                breedId = breed!!,
                             )
 
 
