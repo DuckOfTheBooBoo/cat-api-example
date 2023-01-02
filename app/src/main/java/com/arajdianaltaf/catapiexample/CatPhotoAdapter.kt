@@ -45,8 +45,8 @@ class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapte
     }
 
     override fun onBindViewHolder(holder: DogPhotoViewHolder, position: Int) {
-        val dogs = images[position]
-        holder.bindItem(dogs)
+        val cats = images[position]
+        holder.bindItem(cats)
     }
 
     override fun getItemCount(): Int {

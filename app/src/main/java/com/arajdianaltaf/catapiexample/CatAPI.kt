@@ -6,10 +6,6 @@ import retrofit2.http.Path
 
 interface CatAPI {
 
-    @GET("/api/breed/{breed}/images/random/{num}")
-    suspend fun getDogImagesByBreed(@Path("breed") breed: String, @Path("num") num: Int = 6): Response<ResponseImages>
-
-    @GET("/api/breed/{breed}/{subBreed}/images/random/{num}")
-    suspend fun getDogImagesBySubBreed(@Path("breed") breed: String, @Path("subBreed") subBreed: String, @Path("num") num: Int = 6): Response<ResponseImages>
+//    suspend getBreedList
 
 }

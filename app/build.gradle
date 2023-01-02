@@ -7,6 +7,9 @@ android {
     namespace 'com.arajdianaltaf.catapiexample'
     compileSdk 32
 
+    aaptOptions {
+        noCompress "json"
+    }
     defaultConfig {
         applicationId "com.arajdianaltaf.catapiexample"
         minSdk 21
@@ -62,4 +65,6 @@ dependencies {
     // Scalable Density Pixel
     implementation 'com.intuit.sdp:sdp-android:1.1.0'
 
+    // Gson
+    implementation 'com.google.code.gson:gson:2.8.6'
 }
