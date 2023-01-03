@@ -1,14 +1,20 @@
 package com.arajdianaltaf.catapiexample
 
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
+import com.arajdianaltaf.catapiexample.databinding.ImagePopUpBinding
 import com.arajdianaltaf.catapiexample.databinding.ItemImagesBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -34,6 +40,55 @@ class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapte
     var images: List<CatResponseImageItem>
         get() = differ.currentList
         set(value) { differ.submitList(value) }
+
+    private fun popUpPhotoWindow(photoUrl: String) {
+        val popUpWindow = Dialog(context)
+        val binding: ImagePopUpBinding = ImagePopUpBinding.inflate(LayoutInflater.from(context))
+        popUpWindow.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        Glide.with(context)
+            .load(photoUrl)
+            .fitCenter()
+            .listener(object: RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+
+                    Log.e("GlidePopUpWindow", "Load Failed on ($target): ", e)
+
+                    return false
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+
+                    Log.i("GlidePopUpWindow", "Load success from ($dataSource)")
+                    return false
+                }
+
+            })
+            .override(700,700)
+            .error(R.drawable.ic_image_load_failed)
+            .into(binding.ivPhoto)
+
+
+        binding.ivCloseBtn.setOnClickListener {
+
+            popUpWindow.dismiss()
+
+        }
+        popUpWindow.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        popUpWindow.setContentView(binding.root)
+        popUpWindow.show()
+    }
 
     inner class DogPhotoViewHolder(val itemBinding: ItemImagesBinding): RecyclerView.ViewHolder(itemBinding.root) {
 
@@ -70,6 +125,11 @@ class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapte
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .override(300, 300)
                 .into(itemBinding.ivDogImage)
+
+            itemBinding.ivDogImage.setOnClickListener {
+                Log.i("CatPhotoAdapter", "Image Clicked")
+                popUpPhotoWindow(item.url)
+            }
 
 
         }

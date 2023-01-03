@@ -4,4 +4,6 @@
     <string name="lbl_request">Request</string>
     <string name="lbl_dog_photo">Dog Photo</string>
     <string name="lbl_sub_select_breed">Select Sub Breed</string>
+    <string name="lbl_close_button">Close Button</string>
+    <string name="lbl_cat_photo">Cat Photo</string>
 </resources>
