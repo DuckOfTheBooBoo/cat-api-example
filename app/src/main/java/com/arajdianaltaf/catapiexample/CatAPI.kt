@@ -12,7 +12,6 @@ interface CatAPI {
     suspend fun getCatImagesByBreed(
         @Query("api_key") api_key: String,
         @Query("breed_ids") breedId: String,
-        @Query("limit") limit: Int = 6,
-        @Query("size") size: String = "med"
+        @Query("limit") limit: Int = 6
     ): Response<List<CatResponseImageItem>>
 }

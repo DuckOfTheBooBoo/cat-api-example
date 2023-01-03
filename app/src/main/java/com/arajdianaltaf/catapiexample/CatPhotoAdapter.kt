@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
 import com.arajdianaltaf.catapiexample.databinding.ItemImagesBinding
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapter.DogPhotoViewHolder>() {
 
@@ -31,7 +32,8 @@ class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapte
         fun bindItem(item: CatResponseImageItem) {
             Glide.with(context)
                 .load(item.url)
-                .centerCrop()
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .override(300, 300)
                 .placeholder(R.drawable.dog_api_logo)
                 .into(itemBinding.ivDogImage)
