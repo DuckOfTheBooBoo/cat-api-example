@@ -3,14 +3,15 @@ package com.arajdianaltaf.catapiexample
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.arajdianaltaf.catapiexample.data.CatResponseImageItem
 import com.arajdianaltaf.catapiexample.data.CatResponseItem
 import com.arajdianaltaf.catapiexample.databinding.ActivityMainBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,13 +57,33 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun bottomSheetHeadersAction(show: Boolean) {
+
+        val contents = listOf(
+            binding?.tvHeaderDesc,
+            binding?.tvContentDesc
+        )
+
+        if (show) {
+            for (view in contents) {
+                view?.visibility = View.VISIBLE
+            }
+        } else if (!show) {
+            for (view in contents) {
+                view?.visibility = View.GONE
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
         val adapter = CatPhotoAdapter(this)
+
         binding?.rvImages?.adapter = adapter
         binding?.rvImages?.layoutManager = GridLayoutManager(this, 3)
 
@@ -70,6 +91,18 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             setBreedList()
         }
+
+        // Init BottomSheet
+        val behavior = BottomSheetBehavior.from(binding?.flStandardbottomSheet!!)
+        behavior.apply {
+            this.peekHeight = 200
+            this.state = BottomSheetBehavior.STATE_COLLAPSED
+            this.isHideable = false
+            this.isFitToContents = true
+        }
+
+        // Make bottomSheet contents gone
+        bottomSheetHeadersAction(false)
 
         // Button OnClickListener
         binding?.btnRequest?.setOnClickListener {
@@ -83,7 +116,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    Log.i(Constants.TAG_MAINACTIVITY, "All entry are valid.")
+                    Log.i(Constants.TAG_MAIN_ACTIVITY, "All entry are valid.")
 
                     lifecycleScope.launchWhenCreated {
                         val response = try {
@@ -108,7 +141,10 @@ class MainActivity : AppCompatActivity() {
                         if (response.isSuccessful && response.body() != null) {
                             adapter.images = response.body()!!
 
-                            binding?.tvBreedDesc?.text = response.body()!![0].breeds[0].description
+                            bottomSheetHeadersAction(true)
+                            behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+                            binding?.tvNoBreedSelected?.visibility = View.GONE
+                            binding?.tvContentDesc?.text = response.body()!![0].breeds[0].description
 
 
                         } else {
@@ -122,7 +158,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
-
 
 
     }

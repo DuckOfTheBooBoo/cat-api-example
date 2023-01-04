@@ -6,4 +6,12 @@
     <string name="lbl_sub_select_breed">Select Sub Breed</string>
     <string name="lbl_close_button">Close Button</string>
     <string name="lbl_cat_photo">Cat Photo</string>
+    <string name="lbl_information">Information</string>
+    <string name="lbl_description">Description</string>
+    <string name="lbl_no_breed_selected">Please select a breed to display it\'s informations.</string>
+
+
+    <string name="paragraph_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae neque ultrices, rhoncus metus et, sagittis purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel justo sit amet nulla eleifend blandit. Suspendisse tristique mattis mi, gravida aliquet nisi semper ac. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In volutpat quis augue non molestie. Maecenas ut aliquet massa. Quisque mi nisi, porttitor eget egestas ut, vulputate eu leo. </string>
+
+
 </resources>

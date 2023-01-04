@@ -1,97 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/ll_top"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_base"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/ll_dropdown"
-            android:layout_weight="1"
-            android:layout_width="0dp"
+            android:id="@+id/ll_top"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="@dimen/_16sdp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_select_breed"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/ll_dropdown"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <AutoCompleteTextView
-                    android:hint="@string/lbl_select_breed"
-                    android:id="@+id/actv_breed_type"
-                    android:clickable="false"
-                    android:focusable="false"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_select_breed"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"
-                    android:textSize="@dimen/_14sdp"/>
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_height="wrap_content">
+
+                    <AutoCompleteTextView
+                        android:hint="@string/lbl_select_breed"
+                        android:id="@+id/actv_breed_type"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        android:textSize="@dimen/_14sdp"/>
 
 
-            </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_request"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lbl_request"/>
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btn_request"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_images"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/lbl_request"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ll_top"
+            tools:listitem="@layout/item_images"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_images"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginEnd="@dimen/_16sdp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_top"
-        tools:listitem="@layout/item_images"/>
-
-    <ScrollView
-        android:id="@+id/sc_desc"
+    <FrameLayout
+        android:id="@+id/fl_standardbottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rv_images">
+        android:background="@color/white"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <TextView
-            android:id="@+id/tv_breed_desc"
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/iv_bottomsheet_grapple"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_13sdp"
-            tools:text="@tools:sample/lorem" />
+            android:src="@drawable/ic_bottom_sheet_grapple"
+            android:layout_gravity="center|top"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/ll_base"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_header_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="10dp"
+                    android:text="@string/lbl_information"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_no_breed_selected"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:textSize="15sp"
+                    android:text="@string/lbl_no_breed_selected"/>
 
 
-    </ScrollView>
+                <TextView
+                    android:id="@+id/tv_header_desc"
+                    style="@style/bottomSheetHeader"
+                    android:text="@string/lbl_description"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_content_desc"
+                    style="@style/bottomSheetParagraph"
+                    tools:text="@string/paragraph_lorem"/>
+
+<!--                TODO: Add name, origin, life_span in TableLayout-->
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
