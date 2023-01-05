@@ -128,6 +128,7 @@
 
                 <TextView
                     android:id="@+id/tv_header_desc"
+                    android:layout_marginTop="@dimen/_10sdp"
                     style="@style/bottomSheetHeader"
                     android:text="@string/lbl_description"/>
 
@@ -136,7 +137,53 @@
                     style="@style/bottomSheetParagraph"
                     tools:text="@string/paragraph_lorem"/>
 
-<!--                TODO: Add name, origin, life_span in TableLayout-->
+                <TextView
+                    android:id="@+id/tv_sub_header_full_info"
+                    style="@style/bottomSheetHeader"
+                    android:textSize="@dimen/_15sdp"
+                    android:text="@string/lbl_full_info"/>
+
+                <TableLayout
+                    android:id="@+id/table_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:stretchColumns="0,1"
+                    android:theme="@style/TableLayout.Childs">
+
+                    <!-- Name -->
+                    <TableRow>
+
+                        <TextView
+                            android:text="@string/lbl_name"/>
+
+                        <TextView
+                            tools:text="@tools:sample/first_names"
+                            android:id="@+id/tv_tr_name_value"/>
+
+                    </TableRow>
+                    <!-- Origin -->
+                    <TableRow>
+
+                        <TextView android:text="@string/lbl_origin"/>
+
+                        <TextView
+                            tools:text="@tools:sample/cities"
+                            android:id="@+id/tv_tr_origin_value"/>
+
+                    </TableRow>
+                    <!-- Life Span -->
+                    <TableRow>
+
+                        <TextView android:text="@string/lbl_life_span"/>
+
+                        <TextView
+                            tools:text="14 - 15"
+                            android:id="@+id/tv_tr_lifespan_value"/>
+
+                    </TableRow>
+
+                </TableLayout>
 
             </LinearLayout>
 

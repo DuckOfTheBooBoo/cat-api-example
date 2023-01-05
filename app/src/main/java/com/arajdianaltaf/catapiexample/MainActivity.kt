@@ -61,7 +61,9 @@ class MainActivity : AppCompatActivity() {
 
         val contents = listOf(
             binding?.tvHeaderDesc,
-            binding?.tvContentDesc
+            binding?.tvContentDesc,
+            binding?.tvSubHeaderFullInfo,
+            binding?.tableInfo,
         )
 
         if (show) {
@@ -144,7 +146,13 @@ class MainActivity : AppCompatActivity() {
                             bottomSheetHeadersAction(true)
                             behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                             binding?.tvNoBreedSelected?.visibility = View.GONE
-                            binding?.tvContentDesc?.text = response.body()!![0].breeds[0].description
+
+                            val breedInfo = response.body()!![0].breeds[0]
+
+                            binding?.tvContentDesc?.text = breedInfo.description
+                            binding?.tvTrNameValue?.text = breedInfo.name
+                            binding?.tvTrOriginValue?.text = breedInfo.origin
+                            binding?.tvTrLifespanValue?.text = breedInfo.life_span
 
 
                         } else {
