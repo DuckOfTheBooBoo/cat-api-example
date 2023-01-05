@@ -1,8 +1,14 @@
 package com.arajdianaltaf.catapiexample
 
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -64,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             binding?.tvContentDesc,
             binding?.tvSubHeaderFullInfo,
             binding?.tableInfo,
+            binding?.llWikipediaBtn
         )
 
         if (show) {
@@ -77,6 +84,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -153,6 +161,28 @@ class MainActivity : AppCompatActivity() {
                             binding?.tvTrNameValue?.text = breedInfo.name
                             binding?.tvTrOriginValue?.text = breedInfo.origin
                             binding?.tvTrLifespanValue?.text = breedInfo.life_span
+
+                            binding?.llWikipediaBtn?.setOnTouchListener { v, event ->
+                                when (event.action) {
+                                    MotionEvent.ACTION_DOWN -> {
+                                        v.background.setColorFilter(Color.parseColor("#FF676767"), PorterDuff.Mode.SRC_ATOP)
+                                        v.invalidate()
+                                    }
+                                    MotionEvent.ACTION_UP -> {
+                                        v.background.clearColorFilter()
+                                        v.invalidate()
+                                    }
+                                }
+                                false
+                            }
+
+                            binding?.llWikipediaBtn?.setOnClickListener {
+                                val wikipediaUrl = breedInfo.wikipedia_url
+                                val intent = Intent(Intent.ACTION_VIEW)
+                                intent.data = Uri.parse(wikipediaUrl)
+                                startActivity(intent)
+                            }
+
 
 
                         } else {

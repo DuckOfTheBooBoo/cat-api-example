@@ -145,9 +145,8 @@
 
                 <TableLayout
                     android:id="@+id/table_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
                     android:stretchColumns="0,1"
                     android:theme="@style/TableLayout.Childs">
 
@@ -184,6 +183,37 @@
                     </TableRow>
 
                 </TableLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_wikipedia_btn"
+                    style="?attr/buttonBarButtonStyle"
+                    android:elevation="8dp"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_wikipedia_btn"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:focusable="true">
+
+                    <ImageView
+                        style="?attr/buttonBarButtonStyle"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:clickable="false"
+                        android:src="@drawable/ic_wikipedia_logo"/>
+
+                    <TextView
+                        style="?attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="false"
+                        android:textSize="@dimen/_15sdp"
+                        android:textColor="@color/black"
+                        android:fontFamily="serif"
+                        android:text="@string/lbl_wikipedia_btn"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

@@ -16,6 +16,7 @@
 
     <string name="paragraph_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae neque ultrices, rhoncus metus et, sagittis purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vel justo sit amet nulla eleifend blandit. Suspendisse tristique mattis mi, gravida aliquet nisi semper ac. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In volutpat quis augue non molestie. Maecenas ut aliquet massa. Quisque mi nisi, porttitor eget egestas ut, vulputate eu leo. </string>
     <string name="lbl_full_info">Full Information</string>
+    <string name="lbl_wikipedia_btn">WIKIPEDIA</string>
 
 
 </resources>

@@ -122,7 +122,7 @@ class CatPhotoAdapter(val context: Context): RecyclerView.Adapter<CatPhotoAdapte
 
                 })
                 .error(R.drawable.ic_image_load_failed)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .diskCacheStrategy(DiskCacheStrategy.DATA)
                 .override(300, 300)
                 .into(itemBinding.ivDogImage)
 
