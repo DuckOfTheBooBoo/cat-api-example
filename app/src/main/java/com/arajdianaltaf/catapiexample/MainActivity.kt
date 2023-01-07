@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun bottomSheetHeadersAction(show: Boolean) {
+    private fun bottomSheetContentsAction(show: Boolean) {
 
         val contents = listOf(
             binding?.tvHeaderDesc,
@@ -112,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Make bottomSheet contents gone
-        bottomSheetHeadersAction(false)
+        bottomSheetContentsAction(false)
 
         // Button OnClickListener
         binding?.btnRequest?.setOnClickListener {
@@ -151,7 +151,11 @@ class MainActivity : AppCompatActivity() {
                         if (response.isSuccessful && response.body() != null) {
                             adapter.images = response.body()!!
 
-                            bottomSheetHeadersAction(true)
+                            // Show all bottomSheet Contents
+                            bottomSheetContentsAction(true)
+
+                            binding?.tvNoBreedSelected?.visibility = View.GONE
+
                             behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
                             binding?.tvNoBreedSelected?.visibility = View.GONE
 
